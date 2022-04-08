@@ -1,0 +1,58 @@
+POST http://localhost:3000/api/auth/register
+content-type: application/json
+
+{
+    "username" : "Duong Thuong 1",
+    "password" : "12345"
+}
+
+###
+POST http://localhost:3000/api/auth/login
+content-type: application/json
+
+{
+    "username" : "Duong Thuong 1",
+    "password" : "12345"
+}
+
+###
+
+POST  http://localhost:3000/api/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ4NTFlODkzZjhmZmUyYTk3ODg5ZDkiLCJpYXQiOjE2NDkxMjIyMzd9.Ryp4dBODzzfqcTWcN37U_UYyf9n-_QLUcClh-7ttluo
+
+{
+    "title" : "HTML and CSS Beginer",
+    "description" : "HTML and CSS is first steps take web developer",
+    "src" : "https://letdiv.com/wp-content/uploads/2021/06/html-css-course.jpg",
+    "url" : "https://fullstack.edu.vn/courses/html-css",
+    "status" : "LEARNED"
+}
+###
+
+GET http://localhost:3000/api/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ4NTFlODkzZjhmZmUyYTk3ODg5ZDkiLCJpYXQiOjE2NDkxMjMwNzF9.tzH10WhydMcfO0xjx5lGGU4CL0TEeuYzo2r_oN-LlgI
+
+###
+
+PUT  http://localhost:3000/api/posts/62484c41f2da3721e3c9f9a5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ4NGJjOWYyZGEzNzIxZTNjOWY5OWYiLCJpYXQiOjE2NDg5MDY0MTR9.raGikRAJgc5kUzVNAbpEUIft2zTEJwFoaS5GPQVnctI
+
+{
+    "title" : "Vue Js",
+    "description" : "Vue Js is framework good",
+    "src" : "https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png",
+    "url" : "Vuejs.org",
+    "status" : "LEARNED"
+}
+###
+DELETE   http://localhost:3000/api/posts/624851fd93f8ffe2a97889dc
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ4NTFlODkzZjhmZmUyYTk3ODg5ZDkiLCJpYXQiOjE2NDg5MDY5NTl9.3YavDDi1QXVYJvgsqMl7Vfwt9FpLQZCPSKddyTHnxIA
+
+###
+GET  http://localhost:3000/api/posts/6248525893f8ffe2a97889de
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ4NTFlODkzZjhmZmUyYTk3ODg5ZDkiLCJpYXQiOjE2NDkxMjMwNzF9.tzH10WhydMcfO0xjx5lGGU4CL0TEeuYzo2r_oN-LlgI

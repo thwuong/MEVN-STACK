@@ -1,57 +1,77 @@
 <template>
-  <div class="form">
-    <h2 class="text-center form-heading">Register</h2>
-    <form class="form-content" @submit.prevent="register">
-      <div class="form-group-custom mt-5">
-        <label for="username" class="form-title">Username</label>
-        <input
-          type="text"
-          class="form-input-custom"
-          name="username"
-          v-model="username"
-        />
+  <div class="landing-bg">
+    <div class="landing">
+      <div class="container">
+        <from-auth></from-auth>
+        <div class="form shadow p-3 mb-5 rounded">
+          <h2 class="text-center my-3 text-white">Register</h2>
+          <form @submit.prevent="register">
+            <div class="form-group">
+              <label for="input-username" class="text-white">Username</label>
+              <input
+                type="text"
+                class="form-control bg-input"
+                id="input-username"
+                name="username"
+                placeholder="Enter username"
+                autocomplete="off"
+                v-model="username"
+              />
+            </div>
+            <div class="form-group">
+              <label for="input-password" class="text-white">Password</label>
+              <input
+                type="password"
+                class="form-control bg-input"
+                id="input-password"
+                name="password"
+                placeholder="Enter password"
+                autocomplete="off"
+                v-model="password"
+              />
+            </div>
+            <div class="form-group">
+              <label for="input-password" class="text-white"
+                >Conform password</label
+              >
+              <input
+                type="password"
+                class="form-control bg-input"
+                id="input-password"
+                name="password"
+                placeholder="Enter conform password"
+                autocomplete="off"
+                v-model="conformPassword"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-custom btn-lg btn-block text-white"
+            >
+              Sign Up
+            </button>
+            <div class="text-center mt-2 text-white">
+              Do not have an account?
+              <router-link to="/login">Sign In</router-link>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="form-group-custom mt-5">
-        <label for="password" class="form-title">Password</label>
-        <input
-          type="password"
-          class="form-input-custom"
-          name="password"
-          v-model="password"
-          autocomplete="off"
-        />
-      </div>
-      <div class="form-group-custom mt-5">
-        <label for="repeat-password" class="form-title">Repeat Password</label>
-        <input
-          type="password"
-          class="form-input-custom"
-          name="repeat-password"
-          v-model="repeatPassword"
-          @keyup="handleComformPassword"
-          :class="{ 'error-border': errorPw }"
-          autocomplete="off"
-        />
-      </div>
-      <p class="error-title" v-if="errorPw">Mật khẩu không khớp</p>
-      <div class="form-custom-btn mt-5">
-        <button class="btn-custom">Sign Up</button>
-      </div>
-      <p class="form-control-custom mt-4 text-center">
-        I already have an account.
-        <router-link to="/login">Sign In</router-link>
-      </p>
-    </form>
+    </div>
   </div>
 </template>
 
 <script>
+import FromAuth from "@/components/FormAuth.vue";
 export default {
+  components: {
+    FromAuth,
+  },
   data() {
     return {
       username: "",
       password: "",
-      repeatPassword: "",
+      conformPassword: "",
       errorPw: false,
     };
   },
@@ -63,7 +83,7 @@ export default {
       });
     },
     handleComformPassword() {
-      if (this.password !== this.repeatPassword) {
+      if (this.password !== this.conformPassword) {
         this.errorPw = true;
       } else {
         this.errorPw = false;

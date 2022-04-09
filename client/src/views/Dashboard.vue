@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     logout() {
-      const alertLogout = confirm("Ban Co muon dang xuat");
+      const alertLogout = confirm("Bạn có muốn đăng xuất");
       if (alertLogout) {
         this.$store.dispatch("AUTH/logout");
         this.$router.push("/login");

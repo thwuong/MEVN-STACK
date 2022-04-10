@@ -7,11 +7,11 @@
           <h2 class="text-center my-3 text-white">Register</h2>
           <form @submit.prevent="register">
             <div class="form-group">
-              <label for="input-username" class="text-white">Username</label>
+              <label for="username" class="text-white">Username</label>
               <input
                 type="text"
                 class="form-control bg-input"
-                id="input-username"
+                id="username"
                 name="username"
                 placeholder="Enter username"
                 autocomplete="off"
@@ -19,11 +19,11 @@
               />
             </div>
             <div class="form-group">
-              <label for="input-password" class="text-white">Password</label>
+              <label for="password" class="text-white">Password</label>
               <input
                 type="password"
                 class="form-control bg-input"
-                id="input-password"
+                id="password"
                 name="password"
                 placeholder="Enter password"
                 autocomplete="off"
@@ -31,17 +31,17 @@
               />
             </div>
             <div class="form-group">
-              <label for="input-password" class="text-white"
-                >Conform password</label
+              <label for="confirm-password" class="text-white"
+                >Confirm password</label
               >
               <input
                 type="password"
                 class="form-control bg-input"
-                id="input-password"
-                name="password"
-                placeholder="Enter conform password"
+                id="confirm-password"
+                name="confirm-password"
+                placeholder="Enter confirm password"
                 autocomplete="off"
-                v-model="conformPassword"
+                v-model="confirmPassword"
               />
             </div>
             <button
@@ -63,6 +63,7 @@
 
 <script>
 import FromAuth from "@/components/FormAuth.vue";
+
 export default {
   components: {
     FromAuth,
@@ -71,7 +72,7 @@ export default {
     return {
       username: "",
       password: "",
-      conformPassword: "",
+      confirmPassword: "",
       errorPw: false,
     };
   },
@@ -82,29 +83,8 @@ export default {
         password: this.password,
       });
     },
-    handleComformPassword() {
-      if (this.password !== this.conformPassword) {
-        this.errorPw = true;
-      } else {
-        this.errorPw = false;
-      }
-    },
-  },
-  computed: {
-    alertErrorPw() {
-      this.errorPw = !this.errorPw;
-    },
   },
 };
 </script>
 
-<style>
-.error-title {
-  font-size: 13px;
-  margin-left: 30px;
-  color: #e83e8c;
-}
-.error-border {
-  border: #e83e8c 1px solid;
-}
-</style>
+<style></style>

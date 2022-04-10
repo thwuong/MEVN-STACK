@@ -55,17 +55,6 @@ class PostsController {
         }
     }
 
-    async findPost(req,res,next){
-        const condition = {_id : req.params.id, user : req.userId};
-        try {
-            const post = await Posts.findOne(condition);
-
-            res.json({success : true, post});
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({success : false, message : "Internal server error"})
-        }
-    }
 
     async createPost(req,res,next){
         const {title ,description ,src ,url ,status} = req.body;

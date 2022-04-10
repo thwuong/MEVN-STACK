@@ -6,6 +6,18 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 
 class AuthController {
+    async getUser(req, res, next ){
+        try {
+            const user = await Users.findById(req.userId).select('-password');
+            if(!user){
+                return res.status(400).json({success : false, message : 'User not found'});
+            }
+            res.json({success : true, user})
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({success : false, message : "Internal server error"});
+        }
+    }
     async register(req,res,next){
         const {username, password} = req.body;
         if(!username || !password){
@@ -36,8 +48,8 @@ class AuthController {
                 userId : newUser._id},
                 config.ACCESS_TOKEN_SECRET)
         
-            return res.json({data : {
-                success : true, message : "User created successfully!", accessToken}});
+            return res.json({
+                success : true, message : "User created successfully!", accessToken});
 
         } catch (error) {
             console.log(error);
@@ -61,23 +73,22 @@ class AuthController {
                 return res
                 .status(400)
                 .json({
-                    success : false, message : "Incorrect username"})
+                    success : false, message : "Incorrect username or password"})
             }
-
             const passwordValid = await argon2.verify(user.password,password);
             if(!passwordValid){
                 return res
                 .status(400)
                 .json({
-                    success : false, message : "Incorrect password"})
+                    success : false, message : "Incorrect password or password"})
             }
 
             const accessToken = jwt.sign({
                 userId : user._id},
                 config.ACCESS_TOKEN_SECRET)
         
-            return res.json({data : {
-                success : true, message : "User Logged is successfully!", accessToken}});
+            return res.json({
+                success : true, message : "User Logged is successfully!", accessToken});
 
         } catch (error) {
             console.log(error);

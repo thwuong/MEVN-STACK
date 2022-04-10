@@ -12,6 +12,7 @@
     "bootstrap": "^4.6.1",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
+    "vee-validate": "^4.5.10",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14",
     "vuex": "^4.0.2"

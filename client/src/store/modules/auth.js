@@ -28,32 +28,39 @@ const mutations = {
   }
 };
 const actions = {
+     async getUser(){
+      try {
+        const response = await AuthService.getUser()
+          if(response.data.success)
+          return response.data;
+      } catch (error) {
+          return error.response.data.message || error;
+      }
+    },
     async login({commit}, crenditials){
       try {
         const response = await AuthService.login(crenditials); 
           localStorage.setItem('user',JSON.stringify(response.data.accessToken));
-          if(response.data.success){
-            commit('loginSuccess', response);
+          if(response.data.success)
+            commit('loginSuccess', response.data);
             router.push('/dashboard');
-            return response;
-          }
+            return response.data;
       } catch (error) {
-        commit('loginFailure', error);
-        console.log(error.response.data.message || error);
+        commit('loginFailure');
+        return error.response.data.message || error.message;
       }
     },
     async register({commit}, crenditials){
       try {
         const response = await AuthService.register(crenditials);
         localStorage.setItem('user',JSON.stringify(response.data.accessToken));
-        if(response.data.success){
+        if(response.data.success)
           commit('registerSuccess');
           router.push('/dashboard');
-          return response;
-        }
+          return response.data;
       } catch (error) {
         commit('registerFailure');
-        console.log(error.response.data.message || error);
+        return error.response.data.message || error;
       }
     },
     logout({commit}){

@@ -22,6 +22,9 @@ body{
 .btn-custom{
   background: linear-gradient(120.37deg, rgba(221, 122, 5, 0.8) 0%, rgba(236, 25, 164, 0.8) 100%);
 }
+.btn-custom:hover{
+  color: #221E20;
+}
 .bg-input{
   color: #fff !important;
   background: rgba(255, 255, 255, 0.1) !important;
@@ -35,4 +38,13 @@ input::placeholder{
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 5px;
+}
+.dashboard-bg{
+  background: #221E20;
+}
+.dashboard{
+  width: 100%;
+  height: 100vh;
+  background: url('./Bg.png');
+  background-repeat: no-repeat;
 }

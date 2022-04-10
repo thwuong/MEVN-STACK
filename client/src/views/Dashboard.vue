@@ -1,26 +1,26 @@
 <template>
-  <div>
-    <h1>Dashboard</h1>
-    <button class="btn btn-primary" @click="logout">Logout</button>
+  <div class="dashboard-bg">
+    <div class="dashboard">
+      <nav-bar></nav-bar>
+      <posts></posts>
+    </div>
   </div>
 </template>
 
 <script>
+import NavBar from "../components/NavBar.vue";
+import Posts from "../components/Posts.vue";
 export default {
+  components: {
+    NavBar,
+    Posts,
+  },
   computed: {
     loggedIn() {
       return this.$store.state.AUTH.status.loggedIn;
     },
   },
-  methods: {
-    logout() {
-      const alertLogout = confirm("Bạn có muốn đăng xuất");
-      if (alertLogout) {
-        this.$store.dispatch("AUTH/logout");
-        this.$router.push("/login");
-      }
-    },
-  },
+  methods: {},
   created() {
     if (!this.loggedIn) {
       this.$router.push("/login");

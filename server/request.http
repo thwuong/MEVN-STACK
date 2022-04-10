@@ -11,18 +11,24 @@ POST http://localhost:3000/api/auth/login
 content-type: application/json
 
 {
-    "username" : "Duong Thuong 1",
+    "username" : "admin",
     "password" : "12345"
 }
+
+###
+GET  http://localhost:3000/api/auth/
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjUxNTFiNDA4ZjA5YjQzOGU0OWVmYTEiLCJpYXQiOjE2NDk1NTg0MTN9.nL1Bo8wvAagjSbXcBHNMBeRWvyT4W2nB2Xf0CkqWtiI
+
 
 ###
 
 POST  http://localhost:3000/api/posts
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ4NTFlODkzZjhmZmUyYTk3ODg5ZDkiLCJpYXQiOjE2NDkxMjIyMzd9.Ryp4dBODzzfqcTWcN37U_UYyf9n-_QLUcClh-7ttluo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjUxNTFiNDA4ZjA5YjQzOGU0OWVmYTEiLCJpYXQiOjE2NDk1NTg0MTN9.nL1Bo8wvAagjSbXcBHNMBeRWvyT4W2nB2Xf0CkqWtiI
 
 {
-    "title" : "HTML and CSS Beginer",
+    "title" : "Vue-JS",
     "description" : "HTML and CSS is first steps take web developer",
     "src" : "https://letdiv.com/wp-content/uploads/2021/06/html-css-course.jpg",
     "url" : "https://fullstack.edu.vn/courses/html-css",
@@ -32,7 +38,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ4N
 
 GET http://localhost:3000/api/posts
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ4NTFlODkzZjhmZmUyYTk3ODg5ZDkiLCJpYXQiOjE2NDkxMjMwNzF9.tzH10WhydMcfO0xjx5lGGU4CL0TEeuYzo2r_oN-LlgI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjUxNTFiNDA4ZjA5YjQzOGU0OWVmYTEiLCJpYXQiOjE2NDk1NTg0MTN9.nL1Bo8wvAagjSbXcBHNMBeRWvyT4W2nB2Xf0CkqWtiI
 
 ###
 

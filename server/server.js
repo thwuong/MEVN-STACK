@@ -10,10 +10,11 @@ const route = require('./app/routes');
 connectDB();
 // midleware
 app.use(cors());
-app.use(express.json( ));
+app.use(express.json());
 // router
 route(app);
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 app.listen(port, () => {
     console.log(`Server running in port http://localhost:${port}`);
 })

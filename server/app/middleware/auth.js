@@ -2,12 +2,12 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const verifyToken = (req, res, next) => {
     // authorization Baser ádfkajsdlfjaskldfja
-    const authToken = req.headers;
-    const token = authToken.authorization.split(' ')[1];
+    const authToken = req.headers['authorization'];
+    const token = authToken && authToken.split(' ')[1];
     if(!token)
         return res
         .status(400)
-        .json({succsses : false, message : "Access token not found"});
+        .json({success : false, message : "Access token not found"});
     
     try {
         const decodedToken = jwt.verify(token, config.ACCESS_TOKEN_SECRET);
@@ -15,7 +15,7 @@ const verifyToken = (req, res, next) => {
         next();
     } catch (error) {
         console.log(error);
-        res.status(403).json({succsses : false, message : "Invalid token"});
+        res.status(403).json({success : false, message : "Invalid token"});
     }
 }
 

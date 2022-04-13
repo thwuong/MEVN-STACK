@@ -15,7 +15,8 @@
     "vee-validate": "^4.5.10",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.1",

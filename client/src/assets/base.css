@@ -3,8 +3,6 @@ body{
   font-family: 'Montserrat', sans-serif !important;
 }
 .form {
-  /* background-color: #fff; */
-  width: 500px;
   margin: 0 auto;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.1);
@@ -15,7 +13,7 @@ body{
 .landing {
   padding-top: 2rem;
   width: 100%;
-  height: 100vh;
+  min-height: 635px;
   background: url('./Bg.png');
   background-repeat: no-repeat;
 }
@@ -40,11 +38,31 @@ input::placeholder{
   letter-spacing: 5px;
 }
 .dashboard-bg{
+  width: 100%;
+  height: 100%;
   background: #221E20;
+  position: relative;
 }
 .dashboard{
-  width: 100%;
-  height: 100vh;
+  min-height: 635px;
   background: url('./Bg.png');
+  background-size: cover;
   background-repeat: no-repeat;
+}
+.btn-create{
+  padding: 20px;
+  background-color: #4cdf5d !important;
+  position: absolute;
+  top: 100px;
+  right: 50px;
+}
+.btn-create i{
+  color: #fff;
+  transition: all 0.4s;
+}
+.btn-create:hover i{
+  color: #221E20;
+}
+.message-error{
+  color: #f5554a
 }

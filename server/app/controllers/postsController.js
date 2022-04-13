@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const Posts = require('../models/Posts'); // Model Post
 
 class PostsController {
@@ -27,7 +28,7 @@ class PostsController {
 
     async updatePost(req,res,next){
         const {title ,description ,src ,url ,status} = req.body;
-        const condition = {_id : req.params.id, user : req.userId}
+        const condition = {_id : req.params.id , user : req.userId}
         if(!title){
             return res
             .status(400)

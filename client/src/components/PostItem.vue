@@ -1,37 +1,145 @@
 <template>
-  <div class="col-lg-4 col-md-4" v-for="post in allPosts">
-    <!-- <div class="card">
-      <img class="card-img-top" :src="post.src" :alt="post.title" />
-      <div class="card-body">
-        <h5 class="card-title">{{ post.title }}</h5>
-        <p class="card-text">
-          {{ post.description }}
-        </p>
-        <p class="card-control">
-          <a :href="post.url" class="card-control">Link : {{ post.url }}</a>
-        </p>
-        <a href="#" class="btn btn-primary">Delete</a>
-      </div>
-    </div> -->
+  <div class="col-lg-4 col-md-6" v-for="post in allPost" :key="post._id">
     <div class="post">
       <div class="post-frame">
         <img :src="post.src" alt="" class="post-img" />
       </div>
       <div class="post-body">
-        <h3 class="post-title">HTML CSS</h3>
-        <span class="post-description"
-          >Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
-          nostrum?</span
-        >
-        <p class="post-status">status</p>
+        <h4 class="post-title">{{ post.title }}</h4>
+        <span class="post-description">{{ post.description }}</span>
+        <p class="post-status" :class="[convertClass(post.status)]">
+          {{ post.status }}
+        </p>
 
         <div class="post-controls">
-          <span class="btn btn-custom"
-            ><a href="#" class="post-url text-decoration-none"
-              >Link den dau</a
+          <span class="btn btn-primary btn-sm btn-block"
+            ><a
+              :href="post.url"
+              target="_blank"
+              class="post-url text-decoration-none"
+              >{{ post.url }}</a
             ></span
           >
-          <span class="btn btn-edit">Edit</span>
+        </div>
+        <span
+          @click="getPostId(post._id)"
+          class="btn btn-edit mt-2"
+          data-toggle="modal"
+          data-target="#myModalEdit"
+          ><i class="fa-solid fa-pen-to-square"></i
+        ></span>
+        <span @click="deletePost(post._id)" class="btn btn-delete mt-2"
+          ><i class="fa-solid fa-pen-to-square"></i
+        ></span>
+      </div>
+    </div>
+  </div>
+  <div v-if="!isEmptyPost">
+    <span class="text-white">{{ message }}</span>
+  </div>
+  <div
+    class="modal fade"
+    id="myModalEdit"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <VeeForm
+            v-slot="{ handleSubmit }"
+            :validation-schema="schema"
+            as="div"
+          >
+            <form
+              @submit="handleSubmit($event, editPost)"
+              v-for="item in getPost"
+              :key="item._id"
+            >
+              <div class="form-group">
+                <label for="title">Title</label>
+                <Field
+                  name="title"
+                  type="text"
+                  class="form-control"
+                  id="title"
+                  placeholder="Enter title"
+                  :model-value="item.title"
+                />
+                <ErrorMessage name="title" class="message-error" />
+              </div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <Field
+                  name="description"
+                  type="text"
+                  class="form-control"
+                  id="description"
+                  placeholder="Enter description"
+                  :model-value="item.description"
+                />
+              </div>
+              <div class="form-group">
+                <label for="src">Src</label>
+                <Field
+                  name="src"
+                  type="text"
+                  class="form-control"
+                  id="src"
+                  placeholder="Enter src of image"
+                  :model-value="item.src"
+                />
+              </div>
+              <div class="form-group">
+                <label for="url">Url</label>
+                <Field
+                  name="url"
+                  type="text"
+                  class="form-control"
+                  id="url"
+                  placeholder="Enter url"
+                  :model-value="item.url"
+                />
+              </div>
+              <div class="form-group w-50">
+                <Field
+                  class="form-control form-control-md"
+                  as="select"
+                  name="status"
+                >
+                  <option :model-value="item.status" disabled>
+                    Select Status
+                  </option>
+                  <option v-for="item in arrClass" :value="converstKey(item)">
+                    {{ converstKey(item) }}
+                  </option>
+                </Field>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-danger mr-2"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-success">Save</button>
+              </div>
+            </form>
+          </VeeForm>
         </div>
       </div>
     </div>
@@ -39,10 +147,64 @@
 </template>
 
 <script>
+import { Form as VeeForm, Field, ErrorMessage } from "vee-validate";
+import * as yup from "yup";
 export default {
+  data() {
+    const schema = yup.object({
+      title: yup.string().required(),
+      description: yup.string(),
+      src: yup.string(),
+      url: yup.string(),
+      status: yup.string(),
+    });
+    return {
+      schema,
+      arrClass: [
+        { LEARNED: "learned" },
+        { LEARNING: "learning" },
+        { TOLEARN: "tolearn" },
+      ],
+      message: "empty post list, create new post",
+    };
+  },
+  components: { VeeForm, Field, ErrorMessage },
   computed: {
-    allPosts() {
+    allPost() {
       return this.$store.state.POST.posts;
+    },
+    isEmptyPost() {
+      return this.$store.state.POST.posts[0];
+    },
+    getPost() {
+      return this.$store.state.POST.post;
+    },
+  },
+  methods: {
+    converstKey(key) {
+      return Object.keys(key).toString();
+    },
+    convertClass(status) {
+      return status === "LEARNED"
+        ? "learned"
+        : status === "LEARNING"
+        ? "learning"
+        : "tolearn";
+    },
+    getPostId(id) {
+      this.$store.dispatch("POST/getPostById", id);
+      console.log(this.getPost);
+    },
+    editPost(values) {
+      values.id = this.getPost[0]._id;
+      this.$store.dispatch("POST/editPost", values);
+    },
+    deletePost(id) {
+      const postName = this.allPost.filter((post) => post._id === id);
+      const check = confirm(
+        `Ban co muon xoa post co name ${postName[0].title}`
+      );
+      if (check) this.$store.dispatch("POST/deletePost", id);
     },
   },
 };
@@ -52,15 +214,13 @@ export default {
 .post {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  padding: 10px 0;
-  text-align: center;
+  padding: 15px;
+  margin-bottom: 10px;
 }
 .post-frame {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 3px solid rgba(201, 134, 57, 0.8);
-  margin: 0 auto;
+  max-width: 100%;
+  height: 200px;
+  border-radius: 20px;
   margin-top: 10px;
   overflow: hidden;
 }
@@ -79,21 +239,15 @@ export default {
   margin-top: 10px;
 }
 .post-description {
+  font-size: 16px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.6);
-}
-.post-controls {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .btn-delete {
   background: rgba(229, 70, 70, 1);
   color: #fff;
 }
 .btn-edit {
-  margin-left: 10px;
   background: rgba(215, 210, 71, 1);
   color: #fff;
 }
@@ -103,5 +257,17 @@ export default {
 }
 .btn-custom:hover .post-url {
   color: #221e20;
+}
+.post-status {
+  font-weight: 600;
+}
+.tolearn {
+  color: #f02828;
+}
+.learned {
+  color: #4cdf5d;
+}
+.learning {
+  color: #f08f20;
 }
 </style>

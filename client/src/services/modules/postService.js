@@ -1,5 +1,6 @@
 import createHttp from '@/services'
 import authHeader from '@/services/authHeader';
+
 class PostService {
     constructor(){
         this.http = createHttp('/api/posts');
@@ -8,14 +9,14 @@ class PostService {
     async getAllPost(){
         return (await this.http.get("/",{headers : authHeader()}));
     }
-    async createPost(data){
-        return await(this.http.post('/',{headers:authHeader()}),data)
+    async createNewPost(newData){
+        return (await this.http.post("/",newData,{headers : authHeader()}));
     }
     async deletePost(id){
-        return await(this.http.delete(`/${id}`,{headers:authHeader()}))
+        return (await this.http.delete(`/${id}`,{headers:authHeader()}))
     }
-    async updatePost(data,id){
-        return await(this.http.post(`/${id}`,{headers:authHeader()}),data)
+    async updatePost(newData,id){
+        return (await this.http.put(`/${id}`,newData,{headers:authHeader()}))
     }
     
 }

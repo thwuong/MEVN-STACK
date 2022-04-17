@@ -95,11 +95,16 @@ export default {
     return { schema };
   },
   methods: {
-    register(values) {
-      this.$store.dispatch("AUTH/register", {
+    async register(values) {
+      const { success, message } = await this.$store.dispatch("AUTH/register", {
         username: values.username,
         password: values.password,
       });
+      if (success) {
+        this.$router.push("/dashboard");
+      } else {
+        this.$swal.fire("", message, "error");
+      }
     },
   },
 };

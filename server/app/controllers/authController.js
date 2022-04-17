@@ -80,7 +80,7 @@ class AuthController {
                 return res
                 .status(400)
                 .json({
-                    success : false, message : "Incorrect password or password"})
+                    success : false, message : "Incorrect username or password"})
             }
 
             const accessToken = jwt.sign({

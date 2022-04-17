@@ -28,8 +28,8 @@
           data-target="#myModalEdit"
           ><i class="fa-solid fa-pen-to-square"></i
         ></span>
-        <span @click="deletePost(post._id)" class="btn btn-delete mt-2"
-          ><i class="fa-solid fa-pen-to-square"></i
+        <span @click="deletePost(post._id)" class="btn btn-delete mt-2 ml-2"
+          ><i class="fa-solid fa-trash"></i
         ></span>
       </div>
     </div>
@@ -44,6 +44,7 @@
     role="dialog"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
+    v-if="show"
   >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -120,11 +121,14 @@
                   as="select"
                   name="status"
                 >
-                  <option :model-value="item.status" disabled>
-                    Select Status
+                  <option :value="item.status" disabled>
+                    Select Status {{ item.status }}
                   </option>
-                  <option v-for="item in arrClass" :value="converstKey(item)">
-                    {{ converstKey(item) }}
+                  <option
+                    v-for="itemClass in listClass"
+                    :value="converstKey(itemClass)"
+                  >
+                    {{ converstKey(itemClass) }}
                   </option>
                 </Field>
               </div>
@@ -160,11 +164,12 @@ export default {
     });
     return {
       schema,
-      arrClass: [
+      listClass: [
         { LEARNED: "learned" },
         { LEARNING: "learning" },
         { TOLEARN: "tolearn" },
       ],
+      show: false,
       message: "empty post list, create new post",
     };
   },
@@ -192,19 +197,55 @@ export default {
         : "tolearn";
     },
     getPostId(id) {
+      this.show = !this.show;
       this.$store.dispatch("POST/getPostById", id);
-      console.log(this.getPost);
     },
-    editPost(values) {
+    async editPost(values) {
       values.id = this.getPost[0]._id;
-      this.$store.dispatch("POST/editPost", values);
+      const { success, message } = await this.$store.dispatch(
+        "POST/editPost",
+        values
+      );
+      console.log(message);
+      if (success) {
+        this.$swal
+          .fire({
+            position: "center",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1000,
+          })
+          .then(() => this.$router.go());
+      }
     },
     deletePost(id) {
-      const postName = this.allPost.filter((post) => post._id === id);
-      const check = confirm(
-        `Ban co muon xoa post co name ${postName[0].title}`
-      );
-      if (check) this.$store.dispatch("POST/deletePost", id);
+      this.$swal
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            // const { message } = this.allPost.filter((post) => post._id === id);
+            const { message } = this.$store.dispatch("POST/deletePost", id);
+            this.$swal
+              .fire(message, "Your file has been deleted.", "success")
+              .then(() => {
+                this.$router.go();
+              });
+          }
+        });
+
+      // const check = confirm(
+      //   `Ban co muon xoa post co name ${postName[0].title}`
+      // );
+      // if (check) this.$store.dispatch("POST/deletePost", id);
     },
   },
 };

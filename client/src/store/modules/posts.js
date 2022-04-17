@@ -31,7 +31,7 @@ const actions = {
         try {
             const response = await PostService.updatePost(newData,_id.toString());
             if(response.data.success)
-                router.go();
+                // router.go();
             return response.data
         } catch (error) {
             return error.response.data.message || error;
@@ -41,7 +41,6 @@ const actions = {
         try {
             const response = await PostService.deletePost(crenditials);
             if(response.data.success)
-                router.go();
             return response.data
         } catch (error) {
             return error.response.data.message || error;

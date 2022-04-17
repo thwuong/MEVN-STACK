@@ -43,7 +43,6 @@
                       placeholder="Enter password"
                       autocomplete="off"
                     />
-                    <ErrorMessage name="password" class="message-error" />
                   </div>
                   <button
                     type="submit"
@@ -81,11 +80,16 @@ export default {
     };
   },
   methods: {
-    login(values) {
-      this.$store.dispatch("AUTH/login", {
+    async login(values) {
+      const { message, success } = await this.$store.dispatch("AUTH/login", {
         username: values.username,
         password: values.password,
       });
+      if (!success) {
+        this.$swal.fire("", message, "error");
+      } else {
+        this.$router.push("/dashboard");
+      }
     },
   },
   computed: {

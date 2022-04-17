@@ -43,11 +43,10 @@ const actions = {
           localStorage.setItem('user',JSON.stringify(response.data.accessToken));
           if(response.data.success)
             commit('loginSuccess', response.data);
-            router.push('/dashboard');
             return response.data;
       } catch (error) {
         commit('loginFailure');
-        return error.response.data.message || error.message;
+        return error.response.data || error.message;
       }
     },
     async register({commit}, crenditials){
@@ -56,11 +55,10 @@ const actions = {
         localStorage.setItem('user',JSON.stringify(response.data.accessToken));
         if(response.data.success)
           commit('registerSuccess');
-          router.push('/dashboard');
           return response.data;
       } catch (error) {
         commit('registerFailure');
-        return error.response.data.message || error;
+        return error.response.data || error;
       }
     },
     logout({commit}){

@@ -1,5 +1,10 @@
 <template>
-  <div class="dashboard-bg">
+  <div class="d-flex justify-content-center" v-if="showLoading">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div class="dashboard-bg" v-if="!showLoading">
     <div class="dashboard">
       <nav-bar></nav-bar>
       <posts></posts>
@@ -126,6 +131,7 @@ export default {
     return {
       statusList: ["TO LEARN", "LEARNING", "LEARNED"],
       schema,
+      showLoading: true,
     };
   },
   components: {
@@ -139,6 +145,9 @@ export default {
     loggedIn() {
       return this.$store.state.AUTH.status.loggedIn;
     },
+    handelShowLoading() {
+      this.showLoading = !this.showLoading;
+    },
   },
   methods: {
     createPost(values) {
@@ -146,6 +155,9 @@ export default {
     },
   },
   created() {
+    setInterval(() => {
+      this.handelShowLoading;
+    }, 1500);
     if (!this.loggedIn) {
       this.$router.push("/login");
     }

@@ -1,8 +1,7 @@
 import PostService from "../../services/modules/PostService";
-import router from "../../router/index"
 const state = {
     posts : [],
-    post : {}
+    post : null
 }
 const getters = {
 
@@ -14,13 +13,19 @@ const mutations = {
     ADD_POST(state,post){
         state.posts.push(post);
     },
+    DELETE_POST(state, id){
+        state.posts = state.posts.filter(post => post._id !== id);
+    },
+    EDIT_POST(state, id, postNew){
+        state.posts = state.posts.map(post => post._id === id ? postNew : post)
+    },
     GET_POST_BY_ID(state, id){
         state.post = state.posts.filter(post => post._id === id);
     },
 }
 const actions = {
     async editPost({commit}, crenditials){
-        const _id = crenditials.id;
+        const id = crenditials.id;
         const newData = {
             title : crenditials.title,
             description : crenditials.description,
@@ -29,19 +34,19 @@ const actions = {
             status : crenditials.status
         }
         try {
-            const response = await PostService.updatePost(newData,_id.toString());
+            const response = await PostService.updatePost(newData,id);
             if(response.data.success)
-                // router.go();
-            return response.data
+            return response.data;
         } catch (error) {
-            return error.response.data.message || error;
+            return error.response.data || error;
         }
     },
     async deletePost({commit}, crenditials){
         try {
             const response = await PostService.deletePost(crenditials);
             if(response.data.success)
-            return response.data
+                commit('DELETE_POST',crenditials);
+            return response.data;
         } catch (error) {
             return error.response.data.message || error;
         }
@@ -51,7 +56,6 @@ const actions = {
             const response = await PostService.createNewPost(crenditials);
             if(response.data.success)
                 commit('ADD_POST',response.data);
-                router.go();
             return response.data;
         } catch (error) {
             return error.response.data.message || error

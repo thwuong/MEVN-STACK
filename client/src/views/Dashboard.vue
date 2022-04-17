@@ -150,8 +150,24 @@ export default {
     },
   },
   methods: {
-    createPost(values) {
-      this.$store.dispatch("POST/addPost", values);
+    async createPost(values) {
+      const { message, success } = await this.$store.dispatch(
+        "POST/addPost",
+        values
+      );
+      if (success) {
+        this.$swal
+          .fire({
+            position: "center",
+            icon: "success",
+            title: message,
+            showConfirmButton: false,
+            timer: 1000,
+          })
+          .then(() => {
+            this.$router.go();
+          });
+      }
     },
   },
   created() {

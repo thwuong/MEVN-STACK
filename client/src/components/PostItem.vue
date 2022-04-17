@@ -202,11 +202,7 @@ export default {
     },
     async editPost(values) {
       values.id = this.getPost[0]._id;
-      const { success, message } = await this.$store.dispatch(
-        "POST/editPost",
-        values
-      );
-      console.log(message);
+      const { success } = await this.$store.dispatch("POST/editPost", values);
       if (success) {
         this.$swal
           .fire({
@@ -226,26 +222,16 @@ export default {
           text: "You won't be able to revert this!",
           icon: "warning",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          confirmButtonColor: "#20B2AA",
           cancelButtonColor: "#d33",
           confirmButtonText: "Yes, delete it!",
         })
         .then((result) => {
           if (result.isConfirmed) {
-            // const { message } = this.allPost.filter((post) => post._id === id);
             const { message } = this.$store.dispatch("POST/deletePost", id);
-            this.$swal
-              .fire(message, "Your file has been deleted.", "success")
-              .then(() => {
-                this.$router.go();
-              });
+            this.$swal.fire(message, "Your file has been deleted.", "success");
           }
         });
-
-      // const check = confirm(
-      //   `Ban co muon xoa post co name ${postName[0].title}`
-      // );
-      // if (check) this.$store.dispatch("POST/deletePost", id);
     },
   },
 };

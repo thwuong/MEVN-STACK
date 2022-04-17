@@ -1,4 +1,5 @@
 <template>
+  <nav-bar activeNav="true"></nav-bar>
   <div>
     <h1 class="text-center text-heading">About</h1>
   </div>
@@ -37,7 +38,10 @@
 </template>
 
 <script>
+import NavBar from "../components/NavBar.vue";
+
 export default {
+  components: { NavBar },
   data() {
     return {
       users: [],

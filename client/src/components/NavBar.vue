@@ -24,17 +24,19 @@
             <router-link
               to="/about"
               class="ml-4 text-decoration-none about-link"
+              :class="{ active: activeNav }"
               >About</router-link
             >
           </li>
         </ul>
         <ul class="navbar-nav ml-auto d-flex align-items-center">
-          <li class="nav-item active mr-4">
+          <li class="nav-item active mx-4">
             <span class="text-white">Wellcome {{ user }}</span>
           </li>
           <li class="nav-item active">
             <span class="btn btn-custom logout-control" @click="logout"
-              ><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</span
+              ><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign
+              out</span
             >
           </li>
         </ul>
@@ -45,6 +47,9 @@
 
 <script>
 export default {
+  props: {
+    activeNav: Boolean,
+  },
   data() {
     return {
       user: {},
@@ -53,11 +58,23 @@ export default {
   },
   methods: {
     logout() {
-      const alertLogout = confirm("Bạn có muốn đăng xuất");
-      if (alertLogout) {
-        this.$store.dispatch("AUTH/logout");
-        this.$router.push("/login");
-      }
+      this.$swal
+        .fire({
+          title: "Are you sure?",
+          text: "you want to sign out!",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          cancelButtonText: "No",
+          confirmButtonText: "Yes, i want you to sign out!",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$store.dispatch("AUTH/logout");
+            this.$router.push("/login");
+          }
+        });
     },
   },
   computed: {
@@ -84,5 +101,8 @@ export default {
 .logout-control:hover,
 .about-link:hover {
   color: #221e20;
+}
+.active {
+  color: orange;
 }
 </style>

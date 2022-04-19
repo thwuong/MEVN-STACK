@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-center" v-if="showLoading">
+  <div class="loading" v-if="showLoading">
     <div class="spinner-border" role="status">
       <span class="sr-only">Loading...</span>
     </div>
@@ -7,9 +7,10 @@
   <div class="dashboard-bg" v-if="!showLoading">
     <div class="dashboard">
       <nav-bar></nav-bar>
+      <intro></intro>
       <posts></posts>
-      <span class="btn btn-create" data-toggle="modal" data-target="#myModal">
-        <i class="fa-solid fa-plus"></i>
+      <span class="btn btn__create" data-toggle="modal" data-target="#myModal">
+        <i class="fa-solid fa-plus btn__icon"></i>
       </span>
     </div>
   </div>
@@ -117,6 +118,7 @@
 <script>
 import NavBar from "../components/NavBar.vue";
 import Posts from "../components/Posts.vue";
+import Intro from "../components/Intro.vue";
 import { Form as VeeForm, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 export default {
@@ -135,6 +137,7 @@ export default {
     };
   },
   components: {
+    Intro,
     NavBar,
     Posts,
     VeeForm,
@@ -165,7 +168,7 @@ export default {
             timer: 1000,
           })
           .then(() => {
-            this.$router.go();
+            this.$router.go(0);
           });
       }
     },

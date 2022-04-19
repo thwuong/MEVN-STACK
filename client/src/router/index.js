@@ -3,6 +3,7 @@ import FormLogin from '@/views/FormLogin.vue'
 import FormRegister from '@/views/FormRegister.vue'
 import DashBoard from '@/views/Dashboard.vue'
 import About from '@/views/About.vue'
+import NotFound from '@/views/NotFound.vue'
 const routes = [
     {
         path : '/login',
@@ -29,6 +30,7 @@ const routes = [
         name : "About",
         component : About,
     },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ]
 const router = createRouter({
     history : createWebHistory(import.meta.env.BASE_URL),

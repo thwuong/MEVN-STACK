@@ -1,36 +1,34 @@
 <template>
-  <div class="col-lg-4 col-md-6" v-for="post in allPost" :key="post._id">
+  <div class="col-lg-6 col-md-6" v-for="post in allPost" :key="post._id">
     <div class="post">
-      <div class="post-frame">
-        <img :src="post.src" alt="" class="post-img" />
-      </div>
-      <div class="post-body">
-        <h4 class="post-title">{{ post.title }}</h4>
-        <span class="post-description">{{ post.description }}</span>
-        <p class="post-status" :class="[convertClass(post.status)]">
+      <div class="post__body">
+        <p class="post__status" :class="[convertClass(post.status)]">
           {{ post.status }}
         </p>
-
-        <div class="post-controls">
-          <span class="btn btn-primary btn-sm btn-block"
+        <h4 class="post__title">{{ post.title }}</h4>
+        <span class="post__description">{{ post.description }}</span>
+        <div class="post__controls">
+          <span class="btn__control btn__link"
             ><a
               :href="post.url"
               target="_blank"
               class="post-url text-decoration-none"
-              >{{ post.url }}</a
-            ></span
-          >
+              ><i class="fa-solid fa-play btn__icon"></i></a
+          ></span>
+          <span
+            @click="getPostId(post._id)"
+            class="btn__control btn__edit"
+            data-toggle="modal"
+            data-target="#myModalEdit"
+            ><i class="fa-solid fa-pen-to-square btn__icon"></i
+          ></span>
+          <span @click="deletePost(post._id)" class="btn__control btn__delete"
+            ><i class="fa-solid fa-trash btn__icon"></i
+          ></span>
         </div>
-        <span
-          @click="getPostId(post._id)"
-          class="btn btn-edit mt-2"
-          data-toggle="modal"
-          data-target="#myModalEdit"
-          ><i class="fa-solid fa-pen-to-square"></i
-        ></span>
-        <span @click="deletePost(post._id)" class="btn btn-delete mt-2 ml-2"
-          ><i class="fa-solid fa-trash"></i
-        ></span>
+      </div>
+      <div class="post__frame">
+        <img :src="post.src" alt="" class="post__img" />
       </div>
     </div>
   </div>
@@ -122,7 +120,7 @@
                   name="status"
                 >
                   <option :value="item.status" disabled>
-                    Select Status {{ item.status }}
+                    Status Selected {{ item.status }}
                   </option>
                   <option
                     v-for="itemClass in listClass"
@@ -238,61 +236,91 @@ export default {
 </script>
 
 <style scoped>
-.post {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 15px;
-  margin-bottom: 10px;
+@media (max-width: 575.98px) {
+  .post {
+    flex-wrap: wrap-reverse;
+  }
 }
-.post-frame {
-  max-width: 100%;
-  height: 200px;
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .post {
+    flex-wrap: wrap-reverse;
+  }
+}
+.post {
+  display: flex;
+  background: #fff;
   border-radius: 20px;
-  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.post__title {
+  font-weight: 800;
+}
+.post__status {
+  font-weight: 600;
+}
+.post__description {
+  color: #9e9a9a;
+  padding-right: 20px;
+}
+.post__body {
+  padding: 20px 0 20px 20px;
+  width: 100%;
+}
+.post__frame {
+  width: 100%;
+  height: 240px;
+  padding: 20px;
   overflow: hidden;
 }
-.post-frame:hover .post-img {
-  transform: scale(1.1);
-}
-.post-img {
+.post__img {
   width: 100%;
   height: 100%;
+  border-radius: 15px;
   object-fit: cover;
-  transition: all 0.3s;
+  transition: all 0.4s;
 }
-.post-title {
-  font-weight: 600;
+.post__controls {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 100%;
+}
+.btn__control a {
   color: #fff;
+}
+.btn__control {
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-right: 10px;
   margin-top: 10px;
-}
-.post-description {
-  font-size: 16px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.6);
-}
-.btn-delete {
-  background: rgba(229, 70, 70, 1);
+  cursor: pointer;
   color: #fff;
 }
-.btn-edit {
-  background: rgba(215, 210, 71, 1);
-  color: #fff;
+.btn__icon {
+  transition: all 0.4s;
 }
-.post-url {
-  color: #fff;
-  transition: all 0.3s;
+.btn__link {
+  background: #03a9f4;
 }
-.btn-custom:hover .post-url {
-  color: #221e20;
+.btn__edit {
+  background: #f08f20;
 }
-.post-status {
-  font-weight: 600;
+.btn__delete {
+  background: #f34a5e;
+}
+.btn__control:hover .btn__icon {
+  transform: scale(1.4);
+}
+.post__img:hover {
+  transform: translateY(-10px) translateX(5px);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 .tolearn {
-  color: #f02828;
+  color: #f34a5e;
 }
 .learned {
-  color: #4cdf5d;
+  color: #03f44f;
 }
 .learning {
   color: #f08f20;

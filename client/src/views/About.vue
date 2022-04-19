@@ -1,37 +1,48 @@
 <template>
-  <nav-bar activeNav="true"></nav-bar>
-  <div>
-    <h1 class="text-center text-heading">About</h1>
-  </div>
-  <div class="container">
-    <div class="profile">
-      <div class="profile__header">
-        <div class="profile__avatar">
-          <img
-            src="https://avatars.githubusercontent.com/u/89563434?s=400&u=2fd2c24854286cbc6befd0c2414baa14dbb55694&v=4"
-            alt=""
-            class="profile__src"
-          />
+  <div class="about-bg">
+    <div class="about">
+      <nav-bar activeNav="true"></nav-bar>
+      <h1 class="text-center text-heading title-custom">About us</h1>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6" v-for="user in users">
+            <div class="profile">
+              <div class="profile__header">
+                <div class="profile__avatar">
+                  <img
+                    :src="user.avatar_url"
+                    :alt="user.name"
+                    class="profile__src"
+                  />
+                </div>
+              </div>
+              <div class="profile__content">
+                <h4 class="profile__name">{{ user.login }}</h4>
+                <span class="profile__location">{{ user.location }}</span>
+                <div class="profile__details">
+                  <div class="profile__item">
+                    <span class="profile__title">Follows</span>
+                    <p class="profile__quantity">{{ user.followers }}</p>
+                  </div>
+                  <div class="profile__item">
+                    <span class="profile__title">Repositories</span>
+                    <p class="profile__quantity">{{ user.public_repos }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="profile__footer">
+                <div class="profile__socials">
+                  <div class="profile__social">
+                    <a :href="user.html_url" class="profile__social__link"
+                      ><i class="fa-brands fa-github profile__social_icon"></i>
+                      Github</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="profile__content">
-        <h4 class="profile__name">thwuong</h4>
-        <span class="profile__location">Vietnam</span>
-      </div>
-      <div class="profile__footer">
-        <ul class="profile__socials">
-          <li class="profile__social">
-            <a href="" class="profile__social__link"
-              ><i class="fa-brands fa-github"></i
-            ></a>
-          </li>
-          <li class="profile__social">
-            <a href="" class="profile__social__link">2</a>
-          </li>
-          <li class="profile__social">
-            <a href="" class="profile__social__link">3</a>
-          </li>
-        </ul>
       </div>
     </div>
   </div>
@@ -67,56 +78,95 @@ export default {
 </script>
 
 <style scoped>
+.about-bg {
+  background: #221e20;
+}
+.about {
+  width: 100%;
+  min-height: 100vh;
+  background: url("../assets/Bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .text-heading {
   font-size: 68px;
   font-weight: 600;
 }
 .profile {
-  width: 300px;
-  background: burlywood;
-  border-radius: 10px;
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 20px;
+  margin-bottom: 10px;
 }
-.profile__header {
-  position: relative;
-  height: 100px;
-  background-color: aqua;
+.profile__avatar {
+  margin: 20px;
+  width: 125px;
+  display: block;
+  border-radius: 50%;
+  transition: all 0.4s;
+  overflow: hidden;
 }
 .profile__src {
   width: 100%;
-  height: 100%;
+  display: block;
   object-fit: cover;
 }
-.profile__avatar {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  bottom: calc(-80px / 2);
-  border-radius: 50%;
-  overflow: hidden;
+.profile__avatar:hover {
+  transform: scale(1.2);
 }
 .profile__content {
-  margin-top: 50px;
   text-align: center;
 }
 .profile__name {
+  font-weight: 800;
+}
+.profile__details {
+  display: flex;
+  justify-content: center;
+}
+.profile__item {
+  margin-left: 15px;
+}
+.profile__title {
   font-weight: 600;
 }
+.profile__quantity,
 .profile__location {
-  color: #f5f5f5;
-  font-size: 16px;
-}
-.profile__footer {
+  color: #9e9a9a;
 }
 .profile__socials {
+  margin-top: 10px;
+  padding: 0;
+  padding-bottom: 20px;
   list-style: none;
-  padding-left: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .profile__social {
+  /* margin-right: 20px; */
+  margin: 15px;
+  padding: 12px 28px;
+  border-radius: 8px;
+  transition: all 1s linear;
+  background: linear-gradient(
+    120.37deg,
+    rgba(221, 122, 5, 0.8) 0%,
+    rgba(236, 25, 164, 0.8) 100%
+  );
 }
 .profile__social__link {
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.4s;
+}
+.profile__social_icon {
+  margin-right: 5px;
+}
+.profile__social:hover .profile__social__link {
+  color: orange;
 }
 </style>

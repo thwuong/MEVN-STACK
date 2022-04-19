@@ -31,7 +31,9 @@
         </ul>
         <ul class="navbar-nav ml-auto d-flex align-items-center">
           <li class="nav-item active mx-4">
-            <span class="text-white">Wellcome {{ user }}</span>
+            <span class="text-white"
+              >Wellcome <i class="active">{{ user }}</i></span
+            >
           </li>
           <li class="nav-item active">
             <span class="btn btn-custom logout-control" @click="logout"
@@ -98,7 +100,9 @@ export default {
   color: #fff;
   transition: all 0.3s;
 }
-.logout-control:hover,
+.logout-control:hover {
+  color: orange;
+}
 .about-link:hover {
   color: #221e20;
 }

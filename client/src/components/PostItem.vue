@@ -261,6 +261,11 @@ export default {
 .post__description {
   color: #9e9a9a;
   padding-right: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .post__body {
   padding: 20px 0 20px 20px;
@@ -289,6 +294,7 @@ export default {
   color: #fff;
 }
 .btn__control {
+  font-size: 14px;
   padding: 8px 12px;
   border-radius: 4px;
   margin-right: 10px;

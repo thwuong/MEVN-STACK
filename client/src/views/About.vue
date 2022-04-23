@@ -33,7 +33,10 @@
               <div class="profile__footer">
                 <div class="profile__socials">
                   <div class="profile__social">
-                    <a :href="user.html_url" class="profile__social__link"
+                    <a
+                      :href="user.html_url"
+                      target="_blank"
+                      class="profile__social__link"
                       ><i class="fa-brands fa-github profile__social_icon"></i>
                       Github</a
                     >

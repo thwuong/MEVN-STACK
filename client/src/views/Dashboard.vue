@@ -105,7 +105,7 @@
                 >
                   Close
                 </button>
-                <button type="submit" class="btn btn-success">Save</button>
+                <button type="submit" class="btn btn-success">Create</button>
               </div>
             </form>
           </VeeForm>

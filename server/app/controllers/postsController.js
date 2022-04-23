@@ -1,4 +1,3 @@
-const { default: mongoose } = require('mongoose');
 const Posts = require('../models/Posts'); // Model Post
 
 class PostsController {
@@ -49,7 +48,7 @@ class PostsController {
                     success : false, message : "Post not found or user not authorised"
                 })
                 
-            res.json({success : true, postUpdate});
+            res.json({success : true, message : 'Post updated successfully!', postUpdate});
         } catch (error) {
             console.log(error);
             res.status(500).json({success : false, message : "Internal server error"})

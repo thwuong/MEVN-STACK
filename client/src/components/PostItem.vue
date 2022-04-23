@@ -200,13 +200,16 @@ export default {
     },
     async editPost(values) {
       values.id = this.getPost[0]._id;
-      const { success } = await this.$store.dispatch("POST/editPost", values);
+      const { success, message } = await this.$store.dispatch(
+        "POST/editPost",
+        values
+      );
       if (success) {
         this.$swal
           .fire({
             position: "center",
             icon: "success",
-            title: "Your work has been saved",
+            title: message,
             showConfirmButton: false,
             timer: 1000,
           })

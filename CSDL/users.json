@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "62636dc7a1f0a3cff6556632"
+  },
+  "username": "demo2",
+  "password": "$argon2i$v=19$m=4096,t=3,p=1$EtN4d3Sku6whdysCbgLqUg$eBsJcdWHLIYrndrnbu63346URjlpHVygFJsp0q86EW0",
+  "createdAt": {
+    "$date": "2022-04-23T03:08:55.480Z"
+  },
+  "updatedAt": {
+    "$date": "2022-04-23T03:08:55.480Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6265534a7ec4dd2de5d59ac1"
+  },
+  "username": "admin1",
+  "password": "$argon2i$v=19$m=4096,t=3,p=1$IYdAx0kWum12oZvAZ4kOmw$YjFu8q6JAvu7g626SWxTHS/psf+IvJdBcTi66EVrkA4",
+  "createdAt": {
+    "$date": "2022-04-24T13:40:26.460Z"
+  },
+  "updatedAt": {
+    "$date": "2022-04-24T13:40:26.460Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62677c6923539e455568299b"
+  },
+  "username": "demo1",
+  "password": "$argon2i$v=19$m=4096,t=3,p=1$TYClkK2u39zS19SfeZMIVA$J8rdY/yc6bqyC2sb/bw51d+iFxfw7VmfmipmHtwZPP4",
+  "createdAt": {
+    "$date": "2022-04-26T05:00:25.170Z"
+  },
+  "updatedAt": {
+    "$date": "2022-04-26T05:00:25.170Z"
+  },
+  "__v": 0
+}]

@@ -38,12 +38,12 @@
   <div
     class="modal fade"
     id="myModalEdit"
+    ref="myModalEdit"
     tabindex="-1"
     role="dialog"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
-    v-if="show"
-  >
+    >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -125,6 +125,7 @@
                   <option
                     v-for="itemClass in listClass"
                     :value="converstKey(itemClass)"
+
                   >
                     {{ converstKey(itemClass) }}
                   </option>
@@ -149,6 +150,7 @@
 </template>
 
 <script>
+import $ from 'jquery';
 import { Form as VeeForm, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 export default {
@@ -167,7 +169,6 @@ export default {
         { LEARNING: "learning" },
         { TOLEARN: "tolearn" },
       ],
-      show: false,
       message: "empty post list, create new post",
     };
   },
@@ -213,7 +214,10 @@ export default {
             showConfirmButton: false,
             timer: 1000,
           })
-          .then(() => this.$router.go());
+          .then(() => {
+          this.$store.dispatch("POST/getAllPost");
+          $('#myModalEdit').modal('hide');
+          });
       }
     },
     deletePost(id) {

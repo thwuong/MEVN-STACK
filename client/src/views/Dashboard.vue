@@ -1,10 +1,5 @@
 <template>
-  <div class="loading" v-if="showLoading">
-    <div class="spinner-border" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>
-  </div>
-  <div class="dashboard-bg" v-if="!showLoading">
+  <div class="dashboard-bg">
     <div class="dashboard">
       <nav-bar></nav-bar>
       <intro></intro>
@@ -116,6 +111,7 @@
 </template>
 
 <script>
+import $ from 'jquery';
 import NavBar from "../components/NavBar.vue";
 import Posts from "../components/Posts.vue";
 import Intro from "../components/Intro.vue";
@@ -133,7 +129,6 @@ export default {
     return {
       statusList: ["TO LEARN", "LEARNING", "LEARNED"],
       schema,
-      showLoading: true,
     };
   },
   components: {
@@ -148,12 +143,9 @@ export default {
     loggedIn() {
       return this.$store.state.AUTH.status.loggedIn;
     },
-    handelShowLoading() {
-      this.showLoading = !this.showLoading;
-    },
   },
   methods: {
-    async createPost(values) {
+    async createPost(values, {resetForm}) {
       const { message, success } = await this.$store.dispatch(
         "POST/addPost",
         values
@@ -168,15 +160,14 @@ export default {
             timer: 1000,
           })
           .then(() => {
-            this.$router.go(0);
+            this.$store.dispatch("POST/getAllPost");
+            $('#myModal').modal('hide');
+            resetForm();
           });
       }
     },
   },
   created() {
-    setInterval(() => {
-      this.handelShowLoading;
-    }, 1500);
     if (!this.loggedIn) {
       this.$router.push("/login");
     }

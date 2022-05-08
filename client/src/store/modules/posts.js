@@ -16,9 +16,6 @@ const mutations = {
     DELETE_POST(state, id){
         state.posts = state.posts.filter(post => post._id !== id);
     },
-    EDIT_POST(state, id, postNew){
-        state.posts = state.posts.map(post => post._id === id ? postNew : post)
-    },
     GET_POST_BY_ID(state, id){
         state.post = state.posts.filter(post => post._id === id);
     },
